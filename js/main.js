@@ -427,7 +427,10 @@ function renderFooter() {
   <div class="modal" id="cartModal" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-label="Carrinho de compras">
       <button class="icon-btn modal-close" onclick="closeModal('cartModal')" aria-label="Fechar">${IC.x}</button>
-      <h3>Seu carrinho</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding-right:36px">
+        <h3 style="margin:0">Seu carrinho</h3>
+        <button id="clearCartBtn" class="remove-link" style="display:none" onclick="clearCart()">Limpar carrinho</button>
+      </div>
       <p class="sub">Monte seu pedido e finalize pelo WhatsApp. Frete grátis acima de R$ 499 para São Paulo capital.</p>
       <div id="cartItems"></div>
     </div>
@@ -478,7 +481,9 @@ document.addEventListener("click", e => { if (e.target.classList && e.target.cla
 function openCart() { renderCart(); openModal("cartModal"); }
 function renderCart() {
   const box = document.getElementById("cartItems");
+  const clearBtn = document.getElementById("clearCartBtn");
   const entries = Object.entries(CART).filter(([id]) => getProduto(id));
+  if (clearBtn) clearBtn.style.display = entries.length ? "inline-flex" : "none";
   if (!entries.length) {
     box.innerHTML = `<div class="cart-empty">${IC.cart}<p>Seu carrinho está vazio.</p><a class="btn btn-primary btn-sm" style="margin-top:14px" href="bicicletas.html">Ver bicicletas</a></div>`;
     return;
@@ -508,6 +513,13 @@ function renderCart() {
 }
 function chgQty(id, d) { CART[id] = Math.max(1, (CART[id] || 1) + d); saveAll(); renderCart(); }
 function removeFromCart(id) { delete CART[id]; saveAll(); renderCart(); }
+function clearCart() {
+  if (!Object.keys(CART).length) return;
+  CART = {};
+  saveAll();
+  renderCart();
+  toast("Carrinho esvaziado");
+}
 function applyCoupon() {
   const v = (document.getElementById("couponInput").value || "").trim().toUpperCase();
   if (v === "BEMVINDO10") toast("Cupom aplicado: 10% OFF no checkout! 🎉");
