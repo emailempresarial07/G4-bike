@@ -55,6 +55,15 @@ const IC = {
   book: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0 0 4h14v-4"/></svg>`
 };
 
+/* ---------- Logo G4 Bikes (badge circular: G vermelho, 4 azul, Bikes laranja) ---------- */
+const LOGO_BADGE = `<svg viewBox="0 0 64 64" role="img" aria-label="G4 Bikes">
+  <circle cx="32" cy="32" r="31" fill="#ffffff"/>
+  <text x="32" y="37" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-style="italic" font-size="28" stroke="#14151a" stroke-width=".8"><tspan fill="#e8392c">G</tspan><tspan fill="#2438cf">4</tspan></text>
+  <text x="32" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-style="italic" font-size="11.5" fill="#f28a2e" stroke="#14151a" stroke-width=".35">Bikes</text>
+  <path d="M17 54.5 H47" stroke="#14151a" stroke-width="1.6" stroke-linecap="round"/>
+</svg>`;
+const LOGO_HTML = `<span class="logo-mark">${LOGO_BADGE}</span><span class="logo-txt"><span class="l1"><span class="g">G</span><span class="four">4</span><span class="bk">Bikes</span></span><small>Você pode confiar</small></span>`;
+
 /* ---------- Arte SVG de bicicleta (gerada por cor/categoria) ---------- */
 function bikeArt(p, variant = 0) {
   const c = p.cor;
@@ -140,7 +149,15 @@ function toggleCompare(id, btn) {
   saveAll();
   if (btn) btn.classList.toggle("active", CMP.includes(id));
 }
-function buyNow(id) { addToCart(id); openCart(); }
+/* Compra direta: o site é a porta de entrada, o pedido fecha no WhatsApp */
+function buyNow(id, extras = "") {
+  const p = getProduto(id);
+  const msg = `Olá! 🚴 Quero comprar pelo site da G4 Bikes:\n\n` +
+    `▸ *${p.nome}*\n${extras}` +
+    `▸ Valor: ${fmtBRL(p.preco)} (ou ${pixPreco(p.preco)} no Pix)\n\n` +
+    `Pode confirmar a disponibilidade e as formas de pagamento?`;
+  open(waLink(msg), "_blank", "noopener");
+}
 
 /* ---------- Toast ---------- */
 let toastTimer;
@@ -187,7 +204,7 @@ function productCard(p) {
         <div class="price-pix">${pixPreco(p.preco)} no Pix (5% off)</div>
       </div>
       <div class="prod-actions">
-        <button class="btn btn-primary" onclick="buyNow('${p.id}')">Comprar agora</button>
+        <button class="btn btn-primary" onclick="buyNow('${p.id}')" title="Fechar a compra pelo WhatsApp">${IC.wa} Comprar agora</button>
         <button class="btn btn-outline icon-only" aria-label="Adicionar ao carrinho" title="Adicionar ao carrinho" onclick="addToCart('${p.id}')">${IC.cart}</button>
       </div>
     </div>
@@ -221,10 +238,7 @@ function renderHeader() {
   <a class="skip-link" href="#main">Pular para o conteúdo</a>
   <header class="header" id="header">
     <div class="header-inner">
-      <a class="logo" href="index.html" aria-label="${LOJA.nome} — Início">
-        <span class="logo-mark">${IC.bike}</span>
-        <span>G4<b>BIKES</b></span>
-      </a>
+      <a class="logo" href="index.html" aria-label="${LOJA.nome} — Início">${LOGO_HTML}</a>
       <nav class="nav" aria-label="Menu principal">${nav}</nav>
       <div class="header-actions">
         <button class="icon-btn" id="searchBtn" aria-label="Pesquisar">${IC.search}</button>
@@ -246,7 +260,7 @@ function renderHeader() {
   <div class="drawer" id="drawer" aria-hidden="true">
     <div class="drawer-panel" role="dialog" aria-label="Menu">
       <div class="drawer-head">
-        <a class="logo" href="index.html"><span class="logo-mark">${IC.bike}</span><span>G4<b>BIKES</b></span></a>
+        <a class="logo" href="index.html">${LOGO_HTML}</a>
         <button class="icon-btn" id="drawerClose" aria-label="Fechar menu">${IC.x}</button>
       </div>
       ${NAV_LINKS.map(([h, l]) => `<a class="d-link ${isActive(h) ? "active" : ""}" href="${h}">${IC.arrow}${l}</a>`).join("")}
@@ -284,8 +298,8 @@ function renderFooter() {
     <div class="container">
       <div class="footer-grid">
         <div>
-          <a class="logo" href="index.html"><span class="logo-mark">${IC.bike}</span><span>G4<b>BIKES</b></span></a>
-          <p class="footer-desc">Loja de bicicletas de montanha em São Paulo. Bikes, acessórios e oficina especializada para quem vive sobre duas rodas.</p>
+          <a class="logo" href="index.html">${LOGO_HTML}</a>
+          <p class="footer-desc"><b style="color:var(--neon)">Você pode confiar.</b> Loja de bicicletas de montanha em São Paulo: bikes, acessórios e oficina especializada. Escolha no site e feche sua compra direto pelo WhatsApp.</p>
           <div class="socials">
             <a href="${LOJA.instagramUrl}" target="_blank" rel="noopener" aria-label="Instagram">${IC.insta}</a>
             <a href="#" aria-label="Facebook">${IC.face}</a>
@@ -360,7 +374,7 @@ function renderFooter() {
     <div class="modal-box" role="dialog" aria-label="Carrinho de compras">
       <button class="icon-btn modal-close" onclick="closeModal('cartModal')" aria-label="Fechar">${IC.x}</button>
       <h3>Seu carrinho</h3>
-      <p class="sub">Frete grátis em compras acima de R$ 499 para São Paulo capital.</p>
+      <p class="sub">Monte seu pedido e finalize pelo WhatsApp. Frete grátis acima de R$ 499 para São Paulo capital.</p>
       <div id="cartItems"></div>
     </div>
   </div>
@@ -432,8 +446,8 @@ function renderCart() {
   <div class="cart-total"><span>Total</span><b>${fmtBRL(cartTotal())}</b></div>
   <p class="sub" style="margin:0 0 14px">ou <b style="color:var(--neon)">${pixPreco(cartTotal())} no Pix</b> · ${parcela(cartTotal())}</p>
   <div style="display:grid;gap:10px">
-    <button class="btn btn-primary btn-block" onclick="checkout()">Finalizar compra ${IC.arrow}</button>
-    <a class="btn btn-wa btn-block" target="_blank" rel="noopener" href="${waLink('Olá! Quero finalizar minha compra: ' + entries.map(([id, q]) => `${q}x ${getProduto(id).nome}`).join(', '))}">${IC.wa} Comprar pelo WhatsApp</a>
+    <button class="btn btn-wa btn-lg btn-block" onclick="checkout()">${IC.wa} Finalizar pedido no WhatsApp</button>
+    <p class="sub" style="margin:0;font-size:.8rem;text-align:center">Seu pedido chega prontinho no nosso WhatsApp — pagamento por Pix, cartão ou boleto combinado com o time.</p>
     <input id="couponInput" placeholder="Cupom de desconto" aria-label="Cupom de desconto" style="padding:12px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg-3);color:var(--text);outline:none">
     <button class="btn btn-outline btn-sm" onclick="applyCoupon()">Aplicar cupom</button>
   </div>`;
@@ -446,8 +460,19 @@ function applyCoupon() {
   else if (v) toast("Cupom inválido ou expirado.");
 }
 function checkout() {
-  closeModal("cartModal");
-  toast("Checkout seguro: você seria redirecionado ao pagamento (Pix, cartão ou boleto). 🔒");
+  const entries = Object.entries(CART).filter(([id]) => getProduto(id));
+  if (!entries.length) return;
+  const linhas = entries.map(([id, q]) => {
+    const p = getProduto(id);
+    return `▸ ${q}x ${p.nome} — ${fmtBRL(p.preco * q)}`;
+  }).join("\n");
+  const cupom = (document.getElementById("couponInput")?.value || "").trim();
+  const msg = `Olá! 🚴 Quero finalizar meu pedido do site da G4 Bikes:\n\n${linhas}\n\n` +
+    `💰 Total: ${fmtBRL(cartTotal())} (${pixPreco(cartTotal())} no Pix)` +
+    (cupom ? `\n🎟 Cupom: ${cupom}` : "") +
+    `\n\nComo faço o pagamento?`;
+  open(waLink(msg), "_blank", "noopener");
+  toast("Pedido montado no WhatsApp — é só enviar! ✅");
 }
 
 /* ---------- Favoritos ---------- */

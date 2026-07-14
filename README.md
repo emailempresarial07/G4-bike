@@ -16,8 +16,13 @@ Site completo, moderno e responsivo para a **G4bikes Bike Shop**, loja de bicicl
 | Blog | `blog.html` | 9 pautas de conteúdo sobre ciclismo |
 | Contato | `contato.html` | Formulário, mapa do Google, rota até a loja |
 
+## 🎨 Identidade visual
+
+Cores extraídas da logo oficial G4 Bikes: **G vermelho** (`#e8392c`), **4 azul royal** (`#2438cf`), **Bikes laranja** (`#f28a2e`) e o slogan *"Você pode confiar"*. A logo é um SVG embutido (cabeçalho, rodapé e favicon) — sem depender de arquivos de imagem.
+
 ## ⚙️ Recursos
 
+- **Compra via WhatsApp**: o site é a porta de entrada — "Comprar agora" e "Finalizar pedido" abrem o WhatsApp da loja (11 94702-4219) com o pedido pronto (produto, cor, tamanho, quantidades e total)
 - **Carrinho, favoritos e comparador** persistentes (localStorage)
 - **Assistente virtual** de 8 perguntas com recomendações personalizadas
 - **Busca inteligente** no cabeçalho

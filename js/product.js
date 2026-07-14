@@ -61,12 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="chips" id="tamChips">${p.tamanhos.map((t, i) => `<button class="chip ${i === 0 ? "active" : ""}" data-val="${t}">${t}</button>`).join("")}</div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px">
-          <button class="btn btn-primary btn-lg" onclick="buyNow('${p.id}')">Comprar agora</button>
-          <button class="btn btn-outline btn-lg" onclick="addToCart('${p.id}')">${IC.cart} Carrinho</button>
+        <div style="display:grid;gap:10px;margin-top:20px">
+          <button class="btn btn-primary btn-lg btn-block" onclick="buyNowPdp()">${IC.wa} Comprar pelo WhatsApp</button>
+          <p class="sub" style="margin:0;font-size:.78rem;text-align:center">Enviamos seu pedido prontinho para o nosso WhatsApp — sem cadastro, sem complicação.</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;margin-top:10px">
-          <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(`Olá! Tenho interesse na ${p.nome} (${fmtBRL(p.preco)}). Pode me ajudar?`)}">${IC.wa} Falar com vendedor</a>
+          <button class="btn btn-outline" onclick="addToCart('${p.id}')">${IC.cart} Adicionar ao carrinho</button>
           <button class="btn btn-ghost" id="favBtn" aria-label="Favoritar">${FAVS.includes(p.id) ? IC.heartFill : IC.heart}</button>
           <button class="btn btn-ghost" id="cmpBtn" aria-label="Comparar" title="Adicionar ao comparador">${IC.compare}</button>
         </div>
@@ -172,6 +172,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   bindChips("corChips", "corSel");
   bindChips("tamChips", "tamSel");
+
+  /* ----- Compra pelo WhatsApp com cor e tamanho escolhidos ----- */
+  window.buyNowPdp = () => {
+    const cor = document.getElementById("corSel").textContent;
+    const tam = document.getElementById("tamSel").textContent;
+    buyNow(p.id, `▸ Cor: ${cor} · Tamanho: ${tam}\n`);
+  };
 
   /* ----- Fav / comparar ----- */
   const favBtn = document.getElementById("favBtn");
