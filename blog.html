@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — G4bikes Bike Shop | Dicas de Ciclismo, Manutenção e Trilhas</title>
+  <meta name="description" content="Blog da G4bikes: como escolher a bicicleta ideal, manutenção preventiva, dicas para iniciantes, segurança no trânsito, trilhas perto de São Paulo e muito mais.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23a3e635'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%230a0c0f'%3EG4%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="index.html">Início</a> <span>/</span> <span>Blog</span></nav>
+      <h1>Blog G4bikes</h1>
+      <p class="section-sub">Conteúdo de quem vive o ciclismo: guias de compra, manutenção, segurança, rotas e novidades.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:50px">
+    <div class="container">
+      <div class="blog-grid" data-stagger id="blogGrid"></div>
+      <div style="text-align:center;margin-top:44px" class="reveal">
+        <p class="section-sub" style="margin-bottom:16px">Quer receber os novos artigos e dicas em primeira mão?</p>
+        <a class="btn btn-primary btn-lg" id="waBlog" target="_blank" rel="noopener">Entrar no grupo VIP do WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("waBlog").href = waLink("Olá! Quero entrar no grupo VIP da G4bikes para receber dicas e ofertas.");
+  document.getElementById("blogGrid").innerHTML = BLOG_POSTS.map(b => `
+    <article class="blog-card" id="${b.id}">
+      <div class="blog-cover" style="background:radial-gradient(300px 160px at 50% 20%, color-mix(in srgb, ${b.cor} 20%, transparent), transparent 75%), var(--bg-3); color:${b.cor}">
+        ${IC.book}<span class="badge blog-cat" style="background:${b.cor}">${b.categoria}</span>
+      </div>
+      <div class="blog-body">
+        <h3><a href="#${b.id}" onclick="toast('Artigo completo em breve — enquanto isso, tire dúvidas no WhatsApp!')">${b.titulo}</a></h3>
+        <p>${b.resumo}</p>
+        <div class="blog-meta"><span>📅 ${b.data}</span><span>⏱ ${b.tempo} de leitura</span></div>
+      </div>
+    </article>`).join("");
+});
+</script>
+</body>
+</html>

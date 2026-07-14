@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serviços e Oficina — G4bikes Bike Shop | Manutenção de Bicicletas em SP</title>
+  <meta name="description" content="Oficina especializada em bicicletas em São Paulo: montagem, revisão completa, regulagem de freios e marchas, bike fit, personalização e leva-e-traz. Agende online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23a3e635'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%230a0c0f'%3EG4%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="index.html">Início</a> <span>/</span> <span>Serviços</span></nav>
+      <h1>Oficina G4bikes</h1>
+      <p class="section-sub">Mecânicos especializados, ferramentas profissionais e paixão por bike. Sua magrela em boas mãos — com <b>agendamento online</b> e opção de leva-e-traz.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:50px">
+    <div class="container">
+      <div class="svc-grid" data-stagger id="svcGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="agendar">
+    <div class="container" style="max-width:860px">
+      <div class="section-head center reveal">
+        <span class="kicker">Agendamento online</span>
+        <h2 class="section-title">Agende seu serviço</h2>
+        <p class="section-sub">Escolha o serviço, a data e o horário. Confirmamos pelo WhatsApp em minutos.</p>
+      </div>
+      <form class="contact-card form-grid reveal" id="bookForm">
+        <div class="field"><label for="bNome">Seu nome *</label><input id="bNome" required placeholder="Nome completo"></div>
+        <div class="field"><label for="bTel">WhatsApp *</label><input id="bTel" required placeholder="(11) 9XXXX-XXXX"></div>
+        <div class="field full"><label for="bSvc">Serviço *</label><select id="bSvc" required></select></div>
+        <div class="field"><label for="bData">Data *</label><input id="bData" type="date" required></div>
+        <div class="field"><label for="bHora">Horário *</label>
+          <select id="bHora" required>
+            <option value="">Selecione</option>
+            <option>09:00</option><option>10:00</option><option>11:00</option>
+            <option>13:00</option><option>14:00</option><option>15:00</option>
+            <option>16:00</option><option>17:00</option>
+          </select>
+        </div>
+        <div class="field full"><label for="bBike">Sua bike (marca/modelo)</label><input id="bBike" placeholder="Ex.: G4 Trail Pro 29"></div>
+        <div class="field full"><label for="bObs">Observações</label><textarea id="bObs" rows="3" placeholder="Conte o que está acontecendo com a bike..."></textarea></div>
+        <label class="check full"><input type="checkbox" id="bLeva"> Quero o serviço de <b>&nbsp;retirada e entrega&nbsp;</b> da bicicleta</label>
+        <button class="btn btn-primary btn-lg full" type="submit">Confirmar agendamento pelo WhatsApp</button>
+        <p class="section-sub full" style="font-size:.82rem;margin:0">Ao confirmar, abriremos o WhatsApp com os dados do seu agendamento preenchidos. Sem compromisso até a nossa confirmação.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="parallax-cta">
+    <div class="container reveal">
+      <h2>Primeira revisão grátis</h2>
+      <p>Comprou sua bike na G4bikes? A primeira revisão em até 90 dias é por nossa conta.</p>
+      <a class="btn btn-primary btn-lg" href="bicicletas.html">Ver bicicletas</a>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("svcGrid").innerHTML = SERVICOS.map(s => `
+    <div class="svc-card">
+      <span class="svc-icon">${IC[s.icone] || IC.wrench}</span>
+      <h3>${s.nome}</h3><p>${s.desc}</p>
+      <span class="svc-price">${s.preco}</span>
+      <a class="btn btn-outline btn-sm" href="#agendar" onclick="document.getElementById('bSvc').value='${s.nome}'">Agendar ${IC.arrow}</a>
+    </div>`).join("");
+
+  const sel = document.getElementById("bSvc");
+  sel.innerHTML = `<option value="">Selecione o serviço</option>` + SERVICOS.map(s => `<option>${s.nome}</option>`).join("");
+
+  const data = document.getElementById("bData");
+  data.min = new Date().toISOString().split("T")[0];
+
+  document.getElementById("bookForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const g = id => document.getElementById(id).value;
+    const msg = `Olá! Quero agendar um serviço na oficina G4bikes:\n\n` +
+      `🔧 Serviço: ${g("bSvc")}\n📅 Data: ${g("bData").split("-").reverse().join("/")} às ${g("bHora")}\n` +
+      `👤 Nome: ${g("bNome")}\n📱 WhatsApp: ${g("bTel")}\n🚲 Bike: ${g("bBike") || "não informado"}\n` +
+      (document.getElementById("bLeva").checked ? `🚚 Com retirada e entrega\n` : "") +
+      (g("bObs") ? `📝 Obs: ${g("bObs")}` : "");
+    open(waLink(msg), "_blank", "noopener");
+    toast("Agendamento enviado! Confirmaremos pelo WhatsApp. ✅");
+    e.target.reset();
+  });
+});
+</script>
+</body>
+</html>

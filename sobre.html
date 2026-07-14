@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre Nós — G4bikes Bike Shop | Loja de Bicicletas em São Paulo</title>
+  <meta name="description" content="Conheça a história da G4bikes Bike Shop: loja de bicicletas de montanha no Parque Santa Madalena, São Paulo, com nota 5,0 no Google, oficina própria e equipe apaixonada por ciclismo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23a3e635'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%230a0c0f'%3EG4%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="index.html">Início</a> <span>/</span> <span>Sobre nós</span></nav>
+      <h1>Movidos a pedal desde sempre</h1>
+      <p class="section-sub">A G4bikes nasceu da paixão pelo mountain bike e cresceu com a confiança de milhares de ciclistas de São Paulo.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="reveal-left">
+        <span class="kicker">Nossa história</span>
+        <h2 class="section-title">De ciclistas, para ciclistas</h2>
+        <p class="section-sub">Tudo começou nas trilhas: um grupo de amigos apaixonados por mountain bike, cansados de não encontrar uma loja que falasse a mesma língua. Assim nasceu a <b>G4bikes Bike Shop</b>, no Parque Santa Madalena, zona leste de São Paulo.</p>
+        <p class="section-sub">Hoje somos referência em bicicletas de montanha na região, com <b>nota 5,0 no Google em 289 avaliações</b> — resultado de um atendimento honesto, oficina de alto nível e da certeza de que bike boa é bike que serve para o SEU pedal.</p>
+        <p class="section-sub"><b>Missão:</b> colocar mais pessoas sobre duas rodas com segurança e alegria.<br>
+        <b>Valores:</b> honestidade no atendimento, excelência técnica, paixão pelo esporte e respeito ao bolso do cliente.</p>
+      </div>
+      <div class="about-visual reveal-right" id="aboutVisual"></div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="kicker">Por que a G4bikes</span>
+        <h2 class="section-title">Nossos diferenciais</h2>
+      </div>
+      <div class="feat-grid" data-stagger id="featList" style="grid-template-columns:repeat(4,1fr)"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="kicker">Números</span>
+        <h2 class="section-title">A confiança de quem pedala</h2>
+      </div>
+      <div class="hero-stats reveal" style="justify-content:center;margin-top:0">
+        <div class="hero-stat" style="text-align:center"><b>5.0<span>★</span></b><small>nota no Google</small></div>
+        <div class="hero-stat" style="text-align:center"><b>289</b><small>avaliações reais</small></div>
+        <div class="hero-stat" style="text-align:center"><b>+2<span>mil</span></b><small>bikes entregues</small></div>
+        <div class="hero-stat" style="text-align:center"><b>+5<span>mil</span></b><small>serviços de oficina</small></div>
+        <div class="hero-stat" style="text-align:center"><b>10<span>+</span></b><small>anos de experiência</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="parallax-cta">
+    <div class="container reveal">
+      <h2>Venha nos visitar</h2>
+      <p>Av. Primavera de Caiena, 568 - Parque Santa Madalena, São Paulo. Café passado, papo de bike e test ride grátis.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-primary btn-lg" href="contato.html">Como chegar</a>
+        <a class="btn btn-outline btn-lg" id="waSobre" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("waSobre").href = waLink();
+  document.getElementById("aboutVisual").innerHTML = `
+    <div class="about-photo" style="inset:0 30% 40% 0;background:linear-gradient(140deg,#182015,#0f1410)"><div>${IC.bike}Fachada da loja<br>Parque Santa Madalena</div></div>
+    <div class="about-photo" style="inset:10% 0 52% 74%;background:linear-gradient(140deg,#101a20,#0d1216)"><div>${IC.wrench}Nossa<br>oficina</div></div>
+    <div class="about-photo" style="inset:64% 34% 0 0;background:linear-gradient(140deg,#1c1a10,#141208)"><div>${IC.user}Time G4<br>nas trilhas</div></div>
+    <div class="about-photo" style="inset:52% 0 6% 70%;background:linear-gradient(140deg,#141020,#0e0c16)"><div>${IC.helmet}Showroom<br>completo</div></div>`;
+
+  const feats = [
+    ["Atendimento especializado", "Vendedores que pedalam e entendem do assunto", "user"],
+    ["Produtos de qualidade", "Só trabalhamos com o que usaríamos", "shield"],
+    ["Oficina própria", "Mecânicos certificados e ferramentas pro", "wrench"],
+    ["Pagamento seguro", "Pix, cartão 12x e boleto com proteção total", "card"],
+    ["Garantia de verdade", "Cobertura de fábrica + revisão grátis", "check"],
+    ["Suporte pós-venda", "A compra é só o começo da relação", "wa"],
+    ["Retirada na loja", "Bike montada, regulada e pronta", "pin"],
+    ["Entrega rápida", "1 a 3 dias úteis em SP capital", "truck"]
+  ];
+  document.getElementById("featList").innerHTML = feats.map(([b, s, ic]) =>
+    `<div class="feat">${IC[ic] || IC.check}<div><b>${b}</b><small>${s}</small></div></div>`).join("");
+});
+</script>
+</body>
+</html>

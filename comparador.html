@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparador de Bicicletas — G4bikes Bike Shop</title>
+  <meta name="description" content="Compare até 3 bicicletas lado a lado: preço, peso, quadro, suspensão, freios, marchas, aro, garantia e avaliações. G4bikes São Paulo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23a3e635'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%230a0c0f'%3EG4%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="index.html">Início</a> <span>/</span> <span>Comparador</span></nav>
+      <h1>Comparador de bicicletas</h1>
+      <p class="section-sub">Coloque até <b>3 modelos</b> lado a lado e descubra qual combina mais com você. Os melhores valores de cada linha ficam destacados em verde.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:44px">
+    <div class="container">
+      <div class="compare-picker reveal" id="pickers"></div>
+      <div id="compareArea" class="reveal"></div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const bikes = PRODUTOS.filter(isBike);
+
+  function renderPickers() {
+    document.getElementById("pickers").innerHTML = [0, 1, 2].map(i => `
+      <select aria-label="Escolher bicicleta ${i + 1}" onchange="pickBike(${i}, this.value)">
+        <option value="">— Escolher bike ${i + 1} —</option>
+        ${bikes.map(b => `<option value="${b.id}" ${CMP[i] === b.id ? "selected" : ""}>${b.nome} · ${fmtBRL(b.preco)}</option>`).join("")}
+      </select>`).join("");
+  }
+
+  window.pickBike = (i, id) => {
+    if (id && CMP.includes(id) && CMP[i] !== id) { toast("Essa bike já está no comparador"); renderPickers(); return; }
+    if (id) CMP[i] = id; else CMP.splice(i, 1);
+    CMP = CMP.filter(Boolean);
+    saveAll(); renderPickers(); renderCompare();
+  };
+
+  function renderCompare() {
+    const list = CMP.map(getProduto).filter(Boolean);
+    const area = document.getElementById("compareArea");
+    if (list.length < 2) {
+      area.innerHTML = `<div class="compare-empty">${IC.compare}
+        <h3>Selecione pelo menos 2 bicicletas</h3>
+        <p>Use os seletores acima ou toque no ícone de comparação nos cards de produto.</p>
+        <a class="btn btn-primary" style="margin-top:16px" href="bicicletas.html">Explorar bicicletas</a></div>`;
+      return;
+    }
+    const pesoNum = p => parseFloat(p.specs.peso.replace(",", "."));
+    const best = {
+      preco: Math.min(...list.map(p => p.preco)),
+      peso: Math.min(...list.map(pesoNum)),
+      aval: Math.max(...list.map(p => p.avaliacao))
+    };
+    const rows = [
+      ["Preço", p => `<span class="${p.preco === best.preco ? "best" : ""}">${fmtBRL(p.preco)}</span>`],
+      ["Parcelamento", p => parcela(p.preco)],
+      ["Peso", p => `<span class="${pesoNum(p) === best.peso ? "best" : ""}">${p.specs.peso}</span>`],
+      ["Material do quadro", p => p.specs.quadro],
+      ["Suspensão", p => p.specs.suspensao],
+      ["Freios", p => p.specs.freios],
+      ["Marchas", p => p.specs.marchas],
+      ["Tamanho do aro", p => p.specs.aro],
+      ["Modalidade", p => p.specs.modalidade],
+      ["Garantia", p => p.specs.garantia],
+      ["Avaliação", p => `<span class="${p.avaliacao === best.aval ? "best" : ""}">★ ${p.avaliacao.toFixed(1)} (${p.numAvaliacoes})</span>`]
+    ];
+    area.innerHTML = `<div class="compare-wrap"><table class="compare-table">
+      <tr><td>Modelo</td>${list.map(p => `<th>
+        <div class="compare-head-card">
+          <div class="thumb" style="background:radial-gradient(circle at 50% 30%, color-mix(in srgb, ${p.cor} 24%, transparent), transparent 75%), var(--bg-3)">${bikeArt(p)}</div>
+          <b>${p.nome}</b>
+          <div style="display:flex;gap:6px">
+            <a class="btn btn-primary btn-sm" href="produto.html?id=${p.id}">Ver</a>
+            <button class="btn btn-outline btn-sm" onclick="addToCart('${p.id}')">${IC.cart}</button>
+            <button class="btn btn-ghost btn-sm" aria-label="Remover" onclick="pickBike(${list.indexOf(p)}, '')">${IC.x}</button>
+          </div>
+        </div></th>`).join("")}</tr>
+      ${rows.map(([label, fn]) => `<tr><td>${label}</td>${list.map(p => `<td>${fn(p)}</td>`).join("")}</tr>`).join("")}
+    </table></div>
+    <p class="section-sub" style="margin-top:18px">Ainda em dúvida? <a style="color:var(--neon);text-decoration:underline" target="_blank" rel="noopener" href="${waLink('Olá! Estou em dúvida entre: ' + list.map(p => p.nome).join(' × ') + '. Pode me ajudar?')}">Fale com um especialista no WhatsApp</a> ou use o <a style="color:var(--neon);text-decoration:underline;cursor:pointer" onclick="openAssistant()">assistente inteligente</a>.</p>`;
+  }
+
+  renderPickers();
+  renderCompare();
+});
+</script>
+</body>
+</html>

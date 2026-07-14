@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas — G4bikes Bike Shop | Promoções em Bicicletas e Acessórios</title>
+  <meta name="description" content="Ofertas da semana na G4bikes: bicicletas, capacetes e acessórios com descontos especiais por tempo limitado. Últimas unidades!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23a3e635'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%230a0c0f'%3EG4%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="index.html">Início</a> <span>/</span> <span>Ofertas</span></nav>
+      <h1>🔥 Ofertas por tempo limitado</h1>
+      <p class="section-sub">Desconto especial, últimas unidades e promoção que acaba no fim de semana. Corre que dá tempo!</p>
+      <div class="countdown" id="offersCountdown" style="margin-top:22px" aria-label="Tempo restante das ofertas"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:50px">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Oferta da semana</span>
+        <h2 class="section-title">Destaques com desconto</h2>
+      </div>
+      <div class="prod-grid" data-stagger id="offersGrid"></div>
+
+      <div class="offer-banner reveal" style="margin-top:56px">
+        <div>
+          <span class="kicker">Últimas unidades</span>
+          <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2.1rem)">Quase esgotando — garanta a sua</h2>
+          <p class="section-sub">Modelos com estoque baixíssimo. Quando acabar, acabou.</p>
+          <div id="lowStock" style="display:grid;gap:12px;margin-top:20px"></div>
+        </div>
+        <div style="display:grid;gap:14px">
+          <div class="feat">${""}<div id="couponBox">
+            <b>🎟 Cupom exclusivo do site</b>
+            <small>Use <b style="color:var(--neon)">BEMVINDO10</b> e ganhe 10% OFF na primeira compra.</small>
+          </div></div>
+          <a class="btn btn-wa btn-block" id="waOffers" target="_blank" rel="noopener">Negociar pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  startCountdown(document.getElementById("offersCountdown"), nextOfferEnd());
+  document.getElementById("waOffers").href = waLink("Olá! Vi as ofertas no site da G4bikes e quero negociar um desconto.");
+  document.getElementById("waOffers").innerHTML = IC.wa + " Negociar pelo WhatsApp";
+
+  const ofertas = PRODUTOS.filter(p => p.precoAntigo).sort((a, b) =>
+    (1 - b.preco / b.precoAntigo) - (1 - a.preco / a.precoAntigo));
+  document.getElementById("offersGrid").innerHTML = ofertas.map(productCard).join("");
+
+  const low = PRODUTOS.filter(p => p.estoque <= 7).sort((a, b) => a.estoque - b.estoque).slice(0, 3);
+  document.getElementById("lowStock").innerHTML = low.map(p => `
+    <a class="assist-reco" href="produto.html?id=${p.id}">
+      <div class="thumb" style="background:radial-gradient(circle at 50% 30%, color-mix(in srgb, ${p.cor} 25%, transparent), transparent 75%), var(--bg-3)">${bikeArt(p)}</div>
+      <div style="flex:1"><b>${p.nome}</b><small style="color:var(--danger);font-weight:700">⚡ Restam ${p.estoque} unidade${p.estoque > 1 ? "s" : ""}</small>
+        <div class="stock-bar" style="max-width:180px"><i style="width:${Math.min(p.estoque * 12, 100)}%"></i></div>
+      </div>
+      <span class="price">${fmtBRL(p.preco)}</span>
+    </a>`).join("");
+});
+</script>
+</body>
+</html>

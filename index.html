@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G4bikes Bike Shop — Loja de Bicicletas em São Paulo | MTB, Elétricas e Oficina</title>
+  <meta name="description" content="G4bikes Bike Shop: loja de bicicletas de montanha em São Paulo com nota 5,0 no Google. Mountain bikes, elétricas, urbanas, acessórios e oficina especializada. Av. Primavera de Caiena, 568 - Parque Santa Madalena.">
+  <meta name="keywords" content="loja de bicicletas são paulo, mountain bike, bicicleta elétrica, oficina de bike, G4bikes">
+  <meta property="og:title" content="G4bikes Bike Shop — Sua próxima aventura começa aqui">
+  <meta property="og:description" content="Bicicletas, equipamentos e acessórios para quem vive sobre duas rodas. Nota 5,0 no Google com 289 avaliações.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23a3e635'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%230a0c0f'%3EG4%3C/text%3E%3C/svg%3E">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BikeStore",
+    "name": "G4bikes Bike Shop",
+    "telephone": "+55 11 94702-4219",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Primavera de Caiena, 568 - Parque Santa Madalena",
+      "addressLocality": "São Paulo",
+      "addressRegion": "SP",
+      "postalCode": "03981-010",
+      "addressCountry": "BR"
+    },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "289" },
+    "openingHours": ["Mo-Fr 09:00-18:00", "Sa 09:00-14:00"]
+  }
+  </script>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-grid-lines" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div>
+        <span class="hero-tag"><span class="dot"></span> Nota 5,0 no Google · 289 avaliações · São Paulo</span>
+        <h1>Sua próxima <span class="accent">aventura</span> começa aqui.</h1>
+        <p class="hero-sub">Bicicletas, equipamentos e acessórios para quem vive sobre duas rodas. Mountain bikes, elétricas, urbanas e oficina especializada — tudo em um só lugar.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="bicicletas.html">Ver bicicletas</a>
+          <a class="btn btn-outline btn-lg" href="ofertas.html">Conhecer ofertas</a>
+          <a class="btn btn-ghost btn-lg" href="#" id="heroWa" target="_blank" rel="noopener">Falar com um especialista</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>5.0<span>★</span></b><small>289 avaliações no Google</small></div>
+          <div class="hero-stat"><b>+2<span>mil</span></b><small>bikes entregues</small></div>
+          <div class="hero-stat"><b>10<span>+</span></b><small>anos de estrada</small></div>
+        </div>
+      </div>
+      <div class="hero-visual" id="heroCarousel" aria-label="Destaques de bicicletas"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MARQUEE ===================== -->
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+  <!-- ===================== CATEGORIAS ===================== -->
+  <section class="section" id="categorias">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Explore</span>
+        <h2 class="section-title">Categorias para todo tipo de pedal</h2>
+        <p class="section-sub">Da trilha ao asfalto, do primeiro pedal à competição: encontre exatamente o que você procura.</p>
+      </div>
+      <div class="cat-grid" data-stagger id="catGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== DESTAQUES ===================== -->
+  <section class="section section-alt" id="destaques">
+    <div class="container">
+      <div class="section-head reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;max-width:none;flex-wrap:wrap">
+        <div>
+          <span class="kicker">Vitrine G4</span>
+          <h2 class="section-title">Produtos em destaque</h2>
+          <p class="section-sub">Os modelos mais desejados, testados e aprovados pela nossa equipe.</p>
+        </div>
+        <a class="btn btn-outline" href="bicicletas.html">Ver tudo</a>
+      </div>
+      <div class="prod-grid" data-stagger id="featGrid"></div>
+      <div style="text-align:center;margin-top:40px" class="reveal">
+        <button class="btn btn-primary btn-lg" onclick="openAssistant()">🤖 Não sabe qual escolher? Use o assistente</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OFERTA DA SEMANA ===================== -->
+  <section class="section" id="oferta-semana">
+    <div class="container">
+      <div class="offer-banner reveal">
+        <div>
+          <span class="kicker">Promoção por tempo limitado</span>
+          <h2 class="section-title" style="font-size:clamp(1.6rem,3.5vw,2.4rem)">Oferta da semana:<br>G4 Trail Pro 29 com <span style="color:var(--neon)">17% OFF</span></h2>
+          <div class="countdown" id="offerCountdown" aria-label="Tempo restante da oferta"></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn-primary" href="produto.html?id=g4-trail-pro-29">Aproveitar oferta</a>
+            <a class="btn btn-outline" href="ofertas.html">Todas as ofertas</a>
+          </div>
+        </div>
+        <div>
+          <div id="offerArt" style="max-width:380px;margin-inline:auto"></div>
+          <p style="text-align:center;margin-top:8px"><span class="price-old" id="offerOld"></span> &nbsp; <b class="price-now" id="offerNew" style="color:var(--neon)"></b></p>
+          <div class="stock-bar"><i style="width:28%"></i></div>
+          <p class="stock-note">⚡ Últimas unidades — restam apenas <b>7</b> em estoque</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVIÇOS ===================== -->
+  <section class="section section-alt" id="servicos">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="kicker">Oficina própria</span>
+        <h2 class="section-title">Serviços especializados</h2>
+        <p class="section-sub">Mecânicos apaixonados por bike cuidando da sua magrela como se fosse deles.</p>
+      </div>
+      <div class="svc-grid" data-stagger id="svcGrid"></div>
+      <div style="text-align:center;margin-top:38px" class="reveal">
+        <a class="btn btn-primary btn-lg" href="servicos.html">Agendar um serviço online</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PARALLAX CTA ===================== -->
+  <section class="parallax-cta">
+    <div class="container reveal">
+      <span class="kicker" style="justify-content:center;display:inline-flex">Teste antes de comprar</span>
+      <h2>Venha pedalar com a gente</h2>
+      <p>Visite nossa loja no Parque Santa Madalena, teste os modelos e receba a orientação de quem vive o ciclismo todos os dias.</p>
+      <a class="btn btn-primary btn-lg" href="contato.html">Como chegar à loja</a>
+    </div>
+  </section>
+
+  <!-- ===================== SOBRE ===================== -->
+  <section class="section" id="sobre">
+    <div class="container about-grid">
+      <div class="about-visual reveal-left" id="aboutVisual"></div>
+      <div class="reveal-right">
+        <span class="kicker">Sobre a G4bikes</span>
+        <h2 class="section-title">Paixão por duas rodas desde o primeiro pedal</h2>
+        <p class="section-sub">Somos uma loja de bicicletas de montanha em São Paulo, nascida da paixão pelo ciclismo. Mais do que vender bikes, ajudamos cada cliente a encontrar a companheira perfeita de aventuras — com atendimento honesto e uma oficina de referência.</p>
+        <div class="feat-grid" data-stagger id="featList"></div>
+        <a class="btn btn-outline" style="margin-top:26px" href="sobre.html">Conhecer nossa história</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DEPOIMENTOS ===================== -->
+  <section class="section section-alt" id="avaliacoes">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="kicker">Avaliações</span>
+        <h2 class="section-title">Quem pedala com a G4 recomenda</h2>
+        <div style="margin-top:18px;display:flex;justify-content:center">
+          <span class="google-badge"><span class="g-score">5.0 ★</span> 289 avaliações no Google</span>
+        </div>
+      </div>
+      <div class="testi-grid" data-stagger id="testiGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== BLOG ===================== -->
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section-head reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;max-width:none;flex-wrap:wrap">
+        <div>
+          <span class="kicker">Blog G4</span>
+          <h2 class="section-title">Dicas de quem entende</h2>
+          <p class="section-sub">Conteúdo para você pedalar melhor, mais longe e com mais segurança.</p>
+        </div>
+        <a class="btn btn-outline" href="blog.html">Ver todos os artigos</a>
+      </div>
+      <div class="blog-grid" data-stagger id="blogGrid"></div>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("heroWa").href = waLink("Olá! Gostaria de falar com um especialista da G4bikes.");
+
+  /* ----- Hero: carrossel de bikes ----- */
+  const slides = [
+    { id: "g4-vertex-carbon", label: "Mountain Bike", sub: "G4 Vertex Carbon — full suspension" },
+    { id: "g4-urban-flow",    label: "Urbanas",       sub: "G4 Urban Flow — a cidade é sua" },
+    { id: "g4-volt-e500",     label: "Elétricas",     sub: "G4 Volt E-500 — até 70 km de autonomia" },
+    { id: "g4-kids-20",       label: "Infantis",      sub: "G4 Kids Trail — aventura em miniatura" }
+  ];
+  const carousel = document.getElementById("heroCarousel");
+  carousel.innerHTML = slides.map((s, i) => {
+    const p = getProduto(s.id);
+    return `<div class="hero-slide ${i === 0 ? "active" : ""}" style="--slide-color:${p.cor}">
+      <div class="hero-bike-stage">${bikeArt(p)}</div>
+      <div class="hero-slide-label"><b>${s.label}</b><small>${s.sub}</small></div>
+    </div>`;
+  }).join("") + `<div class="hero-dots">${slides.map((_, i) =>
+    `<button class="${i === 0 ? "active" : ""}" aria-label="Slide ${i + 1}" onclick="goSlide(${i})"></button>`).join("")}</div>`;
+
+  let cur = 0, timer;
+  window.goSlide = (i) => {
+    cur = i;
+    const els = carousel.querySelectorAll(".hero-slide"), dots = carousel.querySelectorAll(".hero-dots button");
+    els.forEach((el, k) => el.classList.toggle("active", k === i));
+    dots.forEach((el, k) => el.classList.toggle("active", k === i));
+    document.getElementById("heroBg").style.setProperty("--hero-glow", getProduto(slides[i].id).cor);
+    clearInterval(timer); timer = setInterval(next, 4500);
+  };
+  const next = () => goSlide((cur + 1) % slides.length);
+  timer = setInterval(next, 4500);
+
+  /* ----- Marquee ----- */
+  const items = ["Entrega rápida", "Oficina própria", "12x sem juros", "5% off no Pix", "Garantia estendida", "Bike fit profissional", "Retirada na loja", "Test ride grátis"];
+  document.getElementById("marqueeTrack").innerHTML = [...items, ...items].map(t => `<span>${IC.bolt}${t}</span>`).join("");
+
+  /* ----- Categorias ----- */
+  document.getElementById("catGrid").innerHTML = CATEGORIAS.map(c => `
+    <a class="cat-card" href="bicicletas.html?cat=${c.id}">
+      <span class="cat-icon">${IC[c.icone] || IC.bike}</span>
+      <h3>${c.nome}</h3><p>${c.desc}</p>
+      <span class="cat-link">Ver produtos ${IC.arrow}</span>
+    </a>`).join("");
+
+  /* ----- Destaques ----- */
+  const destaque = ["g4-vertex-carbon", "g4-trail-pro-29", "g4-volt-e500", "g4-aero-speed", "g4-urban-flow", "g4-gravel-x", "g4-kids-16", "capacete-g4-pro"];
+  document.getElementById("featGrid").innerHTML = destaque.map(id => productCard(getProduto(id))).join("");
+
+  /* ----- Oferta da semana ----- */
+  const offer = getProduto("g4-trail-pro-29");
+  document.getElementById("offerArt").innerHTML = bikeArt(offer);
+  document.getElementById("offerOld").textContent = fmtBRL(offer.precoAntigo);
+  document.getElementById("offerNew").textContent = fmtBRL(offer.preco);
+  startCountdown(document.getElementById("offerCountdown"), nextOfferEnd());
+
+  /* ----- Serviços (6 primeiros) ----- */
+  document.getElementById("svcGrid").innerHTML = SERVICOS.slice(0, 6).map(s => `
+    <div class="svc-card">
+      <span class="svc-icon">${IC[s.icone] || IC.wrench}</span>
+      <h3>${s.nome}</h3><p>${s.desc}</p>
+      <span class="svc-price">${s.preco}</span>
+    </div>`).join("");
+
+  /* ----- Sobre: colagem de "fotos" ----- */
+  document.getElementById("aboutVisual").innerHTML = `
+    <div class="about-photo" style="inset:0 28% 34% 0;background:linear-gradient(140deg,#182015,#0f1410)"><div>${IC.mountain}Trilhas todo fim<br>de semana</div></div>
+    <div class="about-photo" style="inset:12% 0 46% 76%;background:linear-gradient(140deg,#101a20,#0d1216)"><div>${IC.wrench}Oficina<br>própria</div></div>
+    <div class="about-photo" style="inset:70% 40% 0 0;background:linear-gradient(140deg,#1c1a10,#141208)"><div>${IC.user}Equipe<br>apaixonada</div></div>
+    <div class="about-photo" style="inset:60% 0 8% 64%;background:linear-gradient(140deg,#141020,#0e0c16)"><div>${IC.pin}Parque Santa<br>Madalena — SP</div></div>`;
+
+  /* ----- Diferenciais ----- */
+  const feats = [
+    ["Atendimento especializado", "Consultoria de quem pedala de verdade"],
+    ["Oficina própria", "Mecânicos certificados e peças originais"],
+    ["Pagamento seguro", "Pix, cartão em 12x e boleto"],
+    ["Garantia + pós-venda", "Primeira revisão grátis em 90 dias"],
+    ["Retirada na loja", "Bike entregue montada e regulada"],
+    ["Entrega rápida", "1 a 3 dias úteis em SP capital"]
+  ];
+  document.getElementById("featList").innerHTML = feats.map(([b, s]) => `<div class="feat">${IC.check}<div><b>${b}</b><small>${s}</small></div></div>`).join("");
+
+  /* ----- Depoimentos ----- */
+  document.getElementById("testiGrid").innerHTML = DEPOIMENTOS.map(d => `
+    <div class="testi-card">
+      <div class="testi-head">
+        <span class="avatar" style="background:${d.cor}">${d.inicial}</span>
+        <div><b>${d.nome}</b><small>Comprou: ${d.produto}</small></div>
+      </div>
+      <span class="stars">${IC.star.repeat(d.estrelas)}</span>
+      <p>“${d.texto}”</p>
+    </div>`).join("");
+
+  /* ----- Blog ----- */
+  document.getElementById("blogGrid").innerHTML = BLOG_POSTS.slice(0, 3).map(b => `
+    <article class="blog-card">
+      <a class="blog-cover" href="blog.html#${b.id}" style="background:radial-gradient(300px 160px at 50% 20%, color-mix(in srgb, ${b.cor} 20%, transparent), transparent 75%), var(--bg-3); color:${b.cor}">
+        ${IC.book}<span class="badge blog-cat" style="background:${b.cor}">${b.categoria}</span>
+      </a>
+      <div class="blog-body">
+        <h3><a href="blog.html#${b.id}">${b.titulo}</a></h3>
+        <p>${b.resumo}</p>
+        <div class="blog-meta"><span>📅 ${b.data}</span><span>⏱ ${b.tempo} de leitura</span></div>
+      </div>
+    </article>`).join("");
+});
+</script>
+</body>
+</html>
