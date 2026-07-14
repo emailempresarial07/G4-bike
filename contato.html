@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const msg = `Olá! Contato pelo site G4bikes:\n\n👤 ${g("cNome")}\n📱 ${g("cTel")}\n` +
       (g("cEmail") ? `📧 ${g("cEmail")}\n` : "") +
       `📌 Assunto: ${g("cAssunto")}\n\n💬 ${g("cMsg")}`;
-    open(waLink(msg), "_blank", "noopener");
+    openWA(msg);
     toast("Mensagem pronta no WhatsApp — é só enviar! ✅");
     e.target.reset();
   });

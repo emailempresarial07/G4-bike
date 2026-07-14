@@ -149,6 +149,60 @@ function toggleCompare(id, btn) {
   saveAll();
   if (btn) btn.classList.toggle("active", CMP.includes(id));
 }
+/* ---------- Abertura robusta do WhatsApp ----------
+   Alguns ambientes (previews, webviews, bloqueadores de popup) impedem
+   window.open. Se isso acontecer, mostramos um fallback com o número,
+   a mensagem pronta para copiar e um link direto. */
+function openWAUrl(url) {
+  let w = null;
+  try { w = window.open(url, "_blank", "noopener"); } catch (e) { /* bloqueado */ }
+  if (!w) showWAFallback(url);
+}
+function openWA(msg) { openWAUrl(waLink(msg)); }
+
+function showWAFallback(url) {
+  const msg = decodeURIComponent((url.split("text=")[1] || "").replace(/\+/g, " "));
+  let m = document.getElementById("waFallbackModal");
+  if (!m) {
+    m = document.createElement("div");
+    m.className = "modal";
+    m.id = "waFallbackModal";
+    m.setAttribute("aria-hidden", "true");
+    document.body.appendChild(m);
+  }
+  m.innerHTML = `
+    <div class="modal-box" role="dialog" aria-label="Falar no WhatsApp">
+      <button class="icon-btn modal-close" onclick="closeModal('waFallbackModal')" aria-label="Fechar">${IC.x}</button>
+      <h3>📱 Falar com a G4 Bikes</h3>
+      <p class="sub">Toque no botão abaixo para abrir o WhatsApp. Se não abrir, chame a gente no número <b style="color:var(--neon)">(11) 94702-4219</b> e cole a mensagem:</p>
+      <a class="btn btn-wa btn-lg btn-block" href="${url}" target="_blank" rel="noopener">${IC.wa} Abrir WhatsApp</a>
+      <textarea id="waMsgBox" readonly rows="7" aria-label="Mensagem do pedido"
+        style="width:100%;margin-top:14px;padding:14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--bg-3);color:var(--text);resize:vertical">${msg}</textarea>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <button class="btn btn-outline" onclick="copyWAMsg()">Copiar mensagem</button>
+        <a class="btn btn-outline" href="tel:+${LOJA.whatsapp}">${IC.phone} Ligar</a>
+      </div>
+    </div>`;
+  openModal("waFallbackModal");
+}
+function copyWAMsg() {
+  const box = document.getElementById("waMsgBox");
+  box.select();
+  box.setSelectionRange(0, 99999);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) {}
+  if (!ok && navigator.clipboard) navigator.clipboard.writeText(box.value).catch(() => {});
+  toast("Mensagem copiada! Cole no WhatsApp: (11) 94702-4219");
+}
+
+/* Todos os links wa.me do site passam pela abertura robusta */
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest('a[href^="https://wa.me"]');
+  if (!a || a.closest("#waFallbackModal")) return;
+  e.preventDefault();
+  openWAUrl(a.href);
+});
+
 /* Compra direta: o site é a porta de entrada, o pedido fecha no WhatsApp */
 function buyNow(id, extras = "") {
   const p = getProduto(id);
@@ -156,7 +210,7 @@ function buyNow(id, extras = "") {
     `▸ *${p.nome}*\n${extras}` +
     `▸ Valor: ${fmtBRL(p.preco)} (ou ${pixPreco(p.preco)} no Pix)\n\n` +
     `Pode confirmar a disponibilidade e as formas de pagamento?`;
-  open(waLink(msg), "_blank", "noopener");
+  openWA(msg);
 }
 
 /* ---------- Toast ---------- */
@@ -471,7 +525,7 @@ function checkout() {
     `💰 Total: ${fmtBRL(cartTotal())} (${pixPreco(cartTotal())} no Pix)` +
     (cupom ? `\n🎟 Cupom: ${cupom}` : "") +
     `\n\nComo faço o pagamento?`;
-  open(waLink(msg), "_blank", "noopener");
+  openWA(msg);
   toast("Pedido montado no WhatsApp — é só enviar! ✅");
 }
 

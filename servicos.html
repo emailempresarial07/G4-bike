@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `👤 Nome: ${g("bNome")}\n📱 WhatsApp: ${g("bTel")}\n🚲 Bike: ${g("bBike") || "não informado"}\n` +
       (document.getElementById("bLeva").checked ? `🚚 Com retirada e entrega\n` : "") +
       (g("bObs") ? `📝 Obs: ${g("bObs")}` : "");
-    open(waLink(msg), "_blank", "noopener");
+    openWA(msg);
     toast("Agendamento enviado! Confirmaremos pelo WhatsApp. ✅");
     e.target.reset();
   });
